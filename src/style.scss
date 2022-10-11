@@ -17,6 +17,35 @@ body {
     margin-bottom: 50px;
   }
 
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 50%;
+    margin: 0 auto;
+    .tab {
+      background-color: #eee;
+      padding: 5px 10px;
+      cursor: pointer;
+      width: 40%;
+      &:hover {
+        background-color: #696969;
+      }
+      &.active {
+        background-color: rgb(62, 134, 241);
+      }
+    }
+  }
+
+  .forms {
+    margin: 0 auto;
+    padding-top: 10px;
+    background-color: #eee;
+    background-color: rgb(62, 134, 241);
+
+    width: 50%;
+  }
+
   button {
     padding: 5px 20px;
     cursor: pointer;
@@ -25,7 +54,6 @@ body {
     margin: 5px;
     font-size: 18px;
     background-color: #eee;
-    color: #fff;
   }
 
   .form-row {

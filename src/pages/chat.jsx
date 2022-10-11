@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3000");
+console.log("out of chat page render")
 
 export const Chat = () => {
     const [searchParams] = useSearchParams();
@@ -14,6 +14,8 @@ export const Chat = () => {
 
 
     useEffect(() => {
+        const socket = io.connect("http://localhost:3000");
+        console.log("use effect")
         socket.emit("join", { username, chatName })
         socket.on("message", (message) => {
             addMessage(message);
@@ -27,7 +29,6 @@ export const Chat = () => {
         return ()=>{
             socket.disconnect();
         }
-
     }, [])
 
 

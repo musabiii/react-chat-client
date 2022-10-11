@@ -7,7 +7,7 @@ export const Auth = () => {
     const [searchParams] = useSearchParams()
     const existChat = searchParams.get('chat');
     const [chatId, setChatId] = useState(existChat || "")
-    const [showForm, setShowForm] = useState(false)
+    const [activeTab, setActiveTab] = useState('create')
     const navigate = useNavigate()
 
     const createChat = (e) => {
@@ -27,21 +27,27 @@ export const Auth = () => {
 
     return (
         <div className='auth-page'>
-            <h1>Welcome!</h1>
-            {!existChat && <form>
-                <h2>Create chat</h2>
-                <div className='form-row'>
-                    <label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
-                </div>
-                <button onClick={createChat}>create chat</button>
-                <p>or</p>
-            </form>}
-            <div className='show-form' onClick={() => setShowForm(!showForm)}>Enter to chat</div>
-            {showForm && <form>
-                <div className='form-row'><label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></div>
-                <div className='form-row'><label htmlFor="chatid">chat name:</label><input value={chatId} onChange={(e) => setChatId(e.target.value)} id='chatid' type="text" /></div>
-                <button onClick={enterChat}>Enter</button>
-            </form>}
+            <h1>Welcome to instant chat!</h1>
+            {/* <h2>Create chat</h2> */}
+            <div className="tabs">
+                <div className={`tab ${activeTab === "create" ? "active" : ""}`} onClick={() => setActiveTab("create")}>create chat</div>
+                <div className={`tab ${activeTab === "enter" ? "active" : ""}`} onClick={() => setActiveTab("enter")}>enter to chat</div>
+            </div>
+            <div className="forms">
+                {activeTab === "create" && <form>
+                    <div className='form-row'>
+                        <label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
+                    </div>
+                    <button onClick={createChat}>create chat</button>
+                    {/* <p>or</p> */}
+                </form>}
+                {/* <div className='show-form' onClick={() => setShowForm(!showForm)}>Enter to chat</div> */}
+                {activeTab === "enter" && <form>
+                    <div className='form-row'><label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></div>
+                    <div className='form-row'><label htmlFor="chatid">chat name:</label><input value={chatId} onChange={(e) => setChatId(e.target.value)} id='chatid' type="text" /></div>
+                    <button onClick={enterChat}>Enter</button>
+                </form>}
+            </div>
         </div>
     )
 }
