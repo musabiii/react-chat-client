@@ -1,22 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import io from "socket.io-client";
+
 const socket = io.connect("http://localhost:3000");
 
 export const Chat = () => {
     const [searchParams] = useSearchParams();
     const [messages, setMessages] = useState([{ username: "Mike", text: "Hello" }])
+    const [users, setUsers] = useState([])
+
     const chatName = searchParams.get("chat");
     const username = searchParams.get("username");
 
-    const addMessage = (text) => {
-        setMessages(prev => ([ ...prev, {username, text} ]))
 
+    useEffect(() => {
+        socket.emit("join", { username, chatName })
+        socket.on("message", (message) => {
+            addMessage(message);
+        })
+
+        socket.on("updateUsers", (users) => {
+            console.log({users})
+            setUsers(users)
+        })
+    }, [])
+
+
+    const addMessage = ({ username, text }) => {
+        setMessages(prev => ([...prev, { username, text }]))
     }
 
     const sendMessage = (e) => {
         e.preventDefault()
-        addMessage(e.target.usertext.value);
+        // addMessage(e.target.usertext.value);
+        socket.emit("chatMessage", { username, text: e.target.usertext.value })
         e.target.usertext.value = "";
     }
     return (
@@ -27,7 +44,7 @@ export const Chat = () => {
             </header>
             <main>
                 <aside>
-                    aside
+                    {users.map(user=>(<p>{user}</p>))}
                 </aside>
                 <div className="chat-container">
                     <div className="messages">
