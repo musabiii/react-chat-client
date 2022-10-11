@@ -7,9 +7,12 @@ export const Auth = () => {
     const [searchParams] = useSearchParams()
     const existChat = searchParams.get('chat');
     const [chatId, setChatId] = useState(existChat || "")
+    const [showForm, setShowForm] = useState(false)
     const navigate = useNavigate()
 
     const createChat = (e) => {
+
+
         e.preventDefault();
         const chatName = Math.random().toString(36).slice(-8);
         // navigate({ pathname: "chat", search: createSearchParams({ chat: chatName, username }).toString() }, { replace: true,relative:false })
@@ -23,20 +26,22 @@ export const Auth = () => {
     }
 
     return (
-        <div>
+        <div className='auth-page'>
             <h1>Welcome!</h1>
             {!existChat && <form>
                 <h2>Create chat</h2>
-                <p><label htmlFor="username">username</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></p>
+                <div className='form-row'>
+                    <label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
+                </div>
                 <button onClick={createChat}>create chat</button>
-                <h2>Or</h2>
+                <p>or</p>
             </form>}
-            <form>
-                <h3>Enter to existing chat</h3>
-                <p><label htmlFor="username">username</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></p>
-                <p><label htmlFor="chatid">id</label><input value={chatId} onChange={(e) => setChatId(e.target.value)} id='chatid' type="text" /></p>
+            <div className='show-form' onClick={() => setShowForm(!showForm)}>Enter to chat</div>
+            {showForm && <form>
+                <div className='form-row'><label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></div>
+                <div className='form-row'><label htmlFor="chatid">chat name:</label><input value={chatId} onChange={(e) => setChatId(e.target.value)} id='chatid' type="text" /></div>
                 <button onClick={enterChat}>Enter</button>
-            </form>
+            </form>}
         </div>
     )
 }

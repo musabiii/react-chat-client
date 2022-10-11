@@ -23,7 +23,14 @@ export const Chat = () => {
             console.log({users})
             setUsers(users)
         })
+
+        return ()=>{
+            socket.disconnect();
+        }
+
     }, [])
+
+
 
 
     const addMessage = ({ username, text }) => {
