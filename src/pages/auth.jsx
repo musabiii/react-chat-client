@@ -38,7 +38,7 @@ export const Auth = () => {
                     <div className='form-row'>
                         <label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
                     </div>
-                    <button onClick={createChat}>create chat</button>
+                    <button onClick={createChat}>Create</button>
                     {/* <p>or</p> */}
                 </form>}
                 {/* <div className='show-form' onClick={() => setShowForm(!showForm)}>Enter to chat</div> */}
