@@ -8,7 +8,7 @@ console.log("out of chat page render")
 
 export const Chat = () => {
     const [searchParams] = useSearchParams();
-    const [messages, setMessages] = useState([{ username: "Mike", text: "Hello" }])
+    const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
     const [socket, setSocket] = useState(io.connect("http://localhost:3000"));
     const navigate = useNavigate()
@@ -37,8 +37,8 @@ export const Chat = () => {
 
 
 
-    const addMessage = ({ username, text }) => {
-        setMessages(prev => ([...prev, { username, text }]))
+    const addMessage = ({ username, text, timestamp }) => {
+        setMessages(prev => ([...prev, { username, text, timestamp }]))
     }
 
     const sendMessage = (e) => {
@@ -90,16 +90,29 @@ export const Chat = () => {
                             if (message.username === usernameClient) {
                                 return (
                                     <div className="message message-client">
-                                        <div className='text'>{message.text}</div>
+                                        <div className="text-time">
+                                            <div className='text'>{message.text}</div>
+                                            <div className="timestamp">{message.timestamp}</div>
+                                        </div>
                                         <div className='username'>{message.username}</div>
                                     </div>
                                 )
                             }
-
+                            if (message.username === "Bot") {
+                                return (
+                                    <div className="message message-bot">
+                                        <span className="timestamp">{message.timestamp}</span>
+                                        <div className='text'>{message.text}</div>
+                                    </div>
+                                )
+                            }
                             return (
                                 <div className="message">
                                     <div className='username'>{message.username}</div>
-                                    <div className='text'>{message.text}</div>
+                                    <div className="text-time">
+                                        <div className='text'>{message.text}</div>
+                                        <div className="timestamp">{message.timestamp}</div>
+                                    </div>
                                 </div>
                             )
                         })}
