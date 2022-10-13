@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import io from "socket.io-client";
 import copysvg from "../ui/copy.svg"
 import exitsvg from "../ui/exit.svg"
+import sendmsg from "../ui/sendmsg.svg"
 
 console.log("out of chat page render")
 
@@ -58,7 +59,19 @@ export const Chat = () => {
         const ind = location.href.indexOf("&username");
         const copyText = location.href.slice(0,ind);
         navigator.clipboard.writeText(copyText);
-        console.log({copyText})
+
+        const infoMessage = "chat URL is copied!"
+
+        const chatNameElement = document.querySelector('.chatname');
+        const chatNameContent = chatNameElement.innerHTML;
+
+        if (chatNameElement.innerText !== infoMessage) {
+            chatNameElement.innerHTML = `<h2 class = "copy-info">${infoMessage}</h2>`
+            setTimeout(() => {
+                chatNameElement.innerHTML = chatNameContent;
+            }, 1500);
+        }
+
     }
 
     return (
@@ -66,7 +79,7 @@ export const Chat = () => {
 
             <header>
                 <h3 className='title'>Instant chat</h3>
-                <div className='chatname' onClick={copyLink}>
+                <div className='chatname' title='copy chat url' onClick={copyLink}>
                     <h2>{chatName}</h2>
                     <div className='copy-chatname'><img src={copysvg} alt="copy" /></div>
                 </div>
@@ -119,9 +132,11 @@ export const Chat = () => {
                             )
                         })}
                     </div>
-                    <form className='footer' onSubmit={sendMessage}>
+                    <form className='footer' onSubmit={sendMessage} autoComplete="off">
                         <input id='usertext' type="text" />
-                        <button>send</button>
+                        <button>
+                            <img src={sendmsg} alt="" />
+                        </button>
                     </form>
                 </div>
 
