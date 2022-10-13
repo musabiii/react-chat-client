@@ -15,11 +15,12 @@ export const Chat = () => {
 
     const chatName = searchParams.get("chat");
     const usernameClient = searchParams.get("username");
+    if (!usernameClient) {
+        navigate(`/auth?chat=${chatName}`)
+    }
 
 
     useEffect(() => {
-        // const socket = io.connect("http://localhost:3000");
-        console.log("use effect")
         socket.emit("join", { username: usernameClient, chatName })
         socket.on("message", (message) => {
             addMessage(message);
@@ -34,28 +35,30 @@ export const Chat = () => {
         }
     }, [])
 
-
-
-
     const addMessage = ({ username, text, timestamp }) => {
         setMessages(prev => ([...prev, { username, text, timestamp }]))
     }
 
     const sendMessage = (e) => {
         e.preventDefault()
-        // addMessage(e.target.usertext.value);
         const value = e.target.usertext.value;
         if (value) {
             socket.emit("chatMessage", { username: usernameClient, text: value })
             e.target.usertext.value = "";
             const messagesWindow = document.querySelector('.messages');
-            messagesWindow.scrollTop = messagesWindow.scrollHeight + 200;
+            messagesWindow.scrollTop = messagesWindow.scrollHeight;
         }
-        // messagesWindow.scrollTo(0, messagesWindow.scrollHeight+200);
     }
 
     const handleExit = () => {
         navigate("/");
+    }
+
+    const copyLink = () => {
+        const ind = location.href.indexOf("&username");
+        const copyText = location.href.slice(0,ind);
+        navigator.clipboard.writeText(copyText);
+        console.log({copyText})
     }
 
     return (
@@ -63,13 +66,12 @@ export const Chat = () => {
 
             <header>
                 <h3 className='title'>Instant chat</h3>
-                <div className='chatname'>
+                <div className='chatname' onClick={copyLink}>
                     <h2>{chatName}</h2>
                     <div className='copy-chatname'><img src={copysvg} alt="copy" /></div>
                 </div>
-                <div className="exit">
+                <div className="exit"  onClick={handleExit}>
                     <img src={exitsvg} alt="exit" />
-                    <h3 className='exit-title' onClick={handleExit}>exit</h3>
                 </div>
             </header>
             <main>
