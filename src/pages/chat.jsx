@@ -16,12 +16,13 @@ export const Chat = () => {
 
     const chatName = searchParams.get("chat");
     const usernameClient = searchParams.get("username");
-    if (!usernameClient) {
-        navigate(`/auth?chat=${chatName}`)
-    }
 
 
     useEffect(() => {
+        if (!usernameClient) {
+            navigate(`/auth?chat=${chatName}`)
+        }
+
         socket.emit("join", { username: usernameClient, chatName })
         socket.on("message", (message) => {
             addMessage(message);

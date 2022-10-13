@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createSearchParams, Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 
@@ -8,6 +8,7 @@ export const Auth = () => {
     const existChat = searchParams.get('chat');
     const [chatId, setChatId] = useState(existChat || "")
     const [activeTab, setActiveTab] = useState('create')
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -38,13 +39,13 @@ export const Auth = () => {
             <div className="forms">
                 {activeTab === "create" && <form>
                     <div className='form-row'>
-                        <label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
+                        <label htmlFor="username">username:</label><input value={username} autoFocus onChange={(e) => setUsername(e.target.value)} id='username' type="text" />
                     </div>
                     <button onClick={createChat}>Create</button>
                     {/* <p>or</p> */}
                 </form>}
                 {activeTab === "enter" && <form>
-                    <div className='form-row'><label htmlFor="username">username:</label><input value={username} onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></div>
+                    <div className='form-row'><label htmlFor="username">username:</label><input value={username} autoFocus onChange={(e) => setUsername(e.target.value)} id='username' type="text" /></div>
                     <div className='form-row'><label htmlFor="chatid">chat name:</label><input value={chatId} onChange={(e) => setChatId(e.target.value)} id='chatid' type="text" /></div>
                     <button onClick={enterChat}>Enter</button>
                 </form>}
