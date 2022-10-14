@@ -3,7 +3,10 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import io from "socket.io-client";
 import copysvg from "../ui/copy.svg"
 import exitsvg from "../ui/exit.svg"
-import sendmsg from "../ui/sendmsg.svg"
+import sendmsgsvg from "../ui/sendmsg.svg"
+import githubsvg from "../ui/github.svg"
+import clientsvg from "../ui/client.svg"
+import serversvg from "../ui/server.svg"
 
 console.log("out of chat page render")
 
@@ -59,7 +62,7 @@ export const Chat = () => {
 
     const copyLink = () => {
         const ind = location.href.indexOf("&username");
-        const copyText = location.href.slice(0,ind);
+        const copyText = location.href.slice(0, ind);
         navigator.clipboard.writeText(copyText);
 
         const infoMessage = "invite URL is copied!"
@@ -85,7 +88,7 @@ export const Chat = () => {
                     <h2>{chatName}</h2>
                     <div className='copy-chatname'><img src={copysvg} alt="copy" /></div>
                 </div>
-                <div className="exit"  onClick={handleExit}>
+                <div className="exit" onClick={handleExit}>
                     <img src={exitsvg} alt="exit" />
                 </div>
             </header>
@@ -99,11 +102,28 @@ export const Chat = () => {
                                 return <p>{user}</p>
                             })}
                         </div>
-                        <div className="invite">
-                            <button className='invite-btn' onClick={copyLink}>
-                                invite +
-                            </button>
-                        </div>
+                    </div>
+                    <div className="invite">
+                        <button className='invite-btn' onClick={copyLink}>
+                            invite +
+                        </button>
+                    </div>
+                    <div className="about">
+                        <a className="about-row" target="_blank" href='https://github.com/musabiii'>
+                            <img src={githubsvg} alt="" />
+                            <div>musabiii</div>
+                        </a>
+                        <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-client'>
+                            <img src={clientsvg} alt="" />
+                            <div>client</div>
+                        </a>
+                        <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-server'>
+                            <img src={serversvg} alt="" />
+                            <div>server</div>
+                        </a>
+                    </div>
+                    <div className="dark-mode-box">
+
                     </div>
                 </aside>
                 <div className="chat-container">
@@ -139,15 +159,18 @@ export const Chat = () => {
                             )
                         })}
                     </div>
-                    <form className='footer' onSubmit={sendMessage} autoComplete="off">
-                        <input id='usertext' type="text" autoFocus placeholder='type message...'/>
+                    <form className='form' onSubmit={sendMessage} autoComplete="off">
+                        <input id='usertext' type="text" autoFocus placeholder='type message...' />
                         <button>
-                            <img src={sendmsg} alt=""/>
+                            <img src={sendmsgsvg} alt="" />
                         </button>
                     </form>
                 </div>
 
             </main>
+
+
+
 
         </div>
     )
