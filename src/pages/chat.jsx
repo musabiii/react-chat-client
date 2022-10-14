@@ -62,7 +62,7 @@ export const Chat = () => {
         const copyText = location.href.slice(0,ind);
         navigator.clipboard.writeText(copyText);
 
-        const infoMessage = "chat URL is copied!"
+        const infoMessage = "invite URL is copied!"
 
         const chatNameElement = document.querySelector('.chatname');
         const chatNameContent = chatNameElement.innerHTML;
@@ -92,12 +92,17 @@ export const Chat = () => {
             <main>
                 <aside>
                     <div className="users">
-                        <h3>Users:</h3>
+                        <h3 className='users-title'>Users:</h3>
                         <div className='user-row'>
                             {users.map(user => {
                                 if (user === usernameClient) return <p className='user-client'>{user}</p>
                                 return <p>{user}</p>
                             })}
+                        </div>
+                        <div className="invite">
+                            <button className='invite-btn' onClick={copyLink}>
+                                invite +
+                            </button>
                         </div>
                     </div>
                 </aside>
@@ -135,9 +140,9 @@ export const Chat = () => {
                         })}
                     </div>
                     <form className='footer' onSubmit={sendMessage} autoComplete="off">
-                        <input id='usertext' type="text" placeholder='type message...'/>
+                        <input id='usertext' type="text" autoFocus placeholder='type message...'/>
                         <button>
-                            <img src={sendmsg} alt="" />
+                            <img src={sendmsg} alt=""/>
                         </button>
                     </form>
                 </div>

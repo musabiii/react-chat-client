@@ -23,6 +23,7 @@ body {
 
   h1 {
     margin-bottom: 50px;
+    color: $blue;
   }
 
   .tabs {
@@ -42,7 +43,7 @@ body {
 
       // width: 100px;
       &:hover {
-        background-color: #696969;
+        background-color: #6bbaff;
       }
       &.active {
         background-color: $blue;
@@ -99,6 +100,9 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   width: 100%;
+  // border: 1px solid #777;
+  box-shadow: 5px 5px 50px #eee;
+
   // background-color: antiquewhite;
   aspect-ratio: 2/1;
   position: relative;
@@ -112,6 +116,11 @@ body {
     border: 1px solid #eee;
     padding: 10px 20px;
     align-items: center;
+    color: $blue;
+    .title {
+      color: $blue;
+      font-size: 24px;
+    }
 
     .chatname {
       display: flex;
@@ -136,25 +145,52 @@ body {
     }
   }
 
-  aside {
-    padding: 5px 10px;
-    .user-row {
-      margin: 5px;
-      .user-client {
-        font-weight: 700;
-      }
-    }
-  }
+
+
 
   main {
     display: flex;
     height: 600px;
     aside {
       flex: 1 1 20%;
-      border: 1px solid #777;
+      background-color: #fff;
       height: 100%;
       font-size: 18px;
-      // background-color: #fff;
+      padding: 5px 10px;
+      .users {
+        .users-title {
+          color: $blue;
+        }
+      }
+      .user-row {
+        margin: 5px;
+        .user-client {
+          font-weight: 700;
+        }
+      }
+      .invite {
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        .invite-btn {
+          color: #fff;
+          background-color: $blue;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 5px;
+          width: 80%;
+          font-weight: 600;
+          font-size: 18px;
+          cursor: pointer;
+          // box-shadow: inset 1px 1px 5px #fff;
+          transition: all .1s;
+          &:hover {
+
+          }
+          &:active {
+            box-shadow: 1px 1px 5px $blue;
+          }
+        }
+      }
     }
     .chat-container {
       flex: 1 1 80%;
@@ -171,6 +207,9 @@ body {
         .message {
           // padding: 0 10px;
           display: flex;
+          .username {
+            font-weight: 500;
+          }
           .timestamp {
             font-size: 12px;
             align-items: center;
@@ -242,15 +281,15 @@ body {
           font-size: 18px;
           padding: 10px;
           border: none;
-          border-top: #696969 1px dashed;
+          border-top: #eee 1px solid;
         }
         button {
           width: 100px;
           font-size: 18px;
           border: none;
           background-color: #fff;
-          border-top: $font-color 1px;
-          border-top-style: dashed;
+          border-top: #eee 1px;
+          border-top-style: solid;
           cursor: pointer;
 
         }
