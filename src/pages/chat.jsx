@@ -26,6 +26,8 @@ export const Chat = () => {
         socket.emit("join", { username: usernameClient, chatName })
         socket.on("message", (message) => {
             addMessage(message);
+            const messagesWindow = document.querySelector('.messages');
+            messagesWindow.scrollTop = messagesWindow.scrollHeight;
         })
 
         socket.on("updateUsers", (users) => {
@@ -47,8 +49,7 @@ export const Chat = () => {
         if (value) {
             socket.emit("chatMessage", { username: usernameClient, text: value })
             e.target.usertext.value = "";
-            const messagesWindow = document.querySelector('.messages');
-            messagesWindow.scrollTop = messagesWindow.scrollHeight;
+
         }
     }
 
@@ -134,7 +135,7 @@ export const Chat = () => {
                         })}
                     </div>
                     <form className='footer' onSubmit={sendMessage} autoComplete="off">
-                        <input id='usertext' type="text" />
+                        <input id='usertext' type="text" placeholder='type message...'/>
                         <button>
                             <img src={sendmsg} alt="" />
                         </button>
