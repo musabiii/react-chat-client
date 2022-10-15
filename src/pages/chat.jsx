@@ -79,6 +79,12 @@ export const Chat = () => {
 
     }
 
+    const darkmode = () => {
+        document.body.classList.toggle('dark-mode')
+        document.querySelector(".messages").classList.toggle('dark-mode')
+        document.querySelector("aside").classList.toggle('dark-mode')
+    }
+
     return (
         <div className='chat-page'>
 
@@ -123,7 +129,9 @@ export const Chat = () => {
                         </a>
                     </div>
                     <div className="dark-mode-box">
-
+                            <div className="dark-mode-btn" onClick={darkmode}>
+                                darkmode
+                            </div>
                     </div>
                 </aside>
                 <div className="chat-container">

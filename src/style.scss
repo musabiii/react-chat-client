@@ -1,15 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 
-$font-color: #464646;
 $font-color: #6a6a6a;
 $blue: #3396ff;
 $bgc: #edffff;
 $bgcdark: #1e1e1e;
+$bgcdark: #121212;
+$borderdark:#2d2d2d;
 // $bgc:#1e1e1e;
 
 body {
   font-family: "Poppins";
   color: $font-color;
+  transition: all .2s linear;
 }
 
 * {
@@ -34,9 +36,7 @@ body {
     width: 50%;
     margin: 0 auto;
     max-width: 500px;
-    color: #2d2d2d;
     color: #fff;
-
 
     .tab {
       background-color: #a8a7a7;
@@ -80,9 +80,9 @@ body {
     display: flex;
     justify-content: center;
 
-      .input-error {
-        border: 2px solid red;
-      }
+    .input-error {
+      border: 2px solid red;
+    }
   }
   .show-form {
     cursor: pointer;
@@ -108,7 +108,7 @@ body {
   margin: 0 auto;
   max-width: 1200px;
   width: 100%;
-  // border: 1px solid #777;
+  border: 1px solid #eee;
   box-shadow: 5px 5px 50px #eee;
 
   // background-color: antiquewhite;
@@ -125,7 +125,6 @@ body {
     padding: 10px 20px;
     align-items: center;
     color: $blue;
-
 
     .title {
       color: $blue;
@@ -236,7 +235,7 @@ body {
           .timestamp {
             font-size: 12px;
             align-items: center;
-            color: #696969;
+            color: $font-color;
             margin: 0 10px;
             align-self: flex-end;
             position: relative;
@@ -274,7 +273,7 @@ body {
             padding: 0;
             justify-content: center;
             align-items: center;
-            color: #696969;
+            color: $font-color;
             flex-direction: column;
             .timestamp {
               align-self: center;
@@ -305,6 +304,7 @@ body {
           padding: 10px;
           border: none;
           border-top: #eee 1px solid;
+          color: $font-color;
         }
         button {
           width: 100px;
@@ -324,6 +324,39 @@ body {
   }
 }
 
-.dark-mode {
+body.dark-mode {
   background-color: $bgcdark;
+
+  header {
+    border-color: $borderdark;
+  }
+  .invite {
+    border-top-color: $borderdark !important;
+  }
+  .messages {
+    background-color: $bgcdark;
+    border-color: $borderdark;
+  }
+  .chat-container {
+    border-color: $borderdark;
+
+  }
+  .chat-page {
+    box-shadow: none;
+  box-shadow: 5px 5px 200px #696969;
+    border-color: $borderdark;
+
+  }
+  aside {
+    background-color: $bgcdark;
+  }
+  input {
+    background-color: $bgcdark;
+    border-top-color: $borderdark !important;
+  }
+  .chat-page main .chat-container .form button {
+    background-color: $bgcdark;
+    border-color: $borderdark;
+
+  }
 }
