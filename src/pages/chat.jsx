@@ -16,7 +16,7 @@ export const Chat = () => {
     const [searchParams] = useSearchParams();
     const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
-    const [socket, setSocket] = useState(io.connect("http://localhost:3000"));
+    const [socket, setSocket] = useState(io.connect("http://localhost:3001"));
     const [darkmode, setDarkmode] = useState(false)
     const navigate = useNavigate()
 
@@ -46,14 +46,23 @@ export const Chat = () => {
     }, [])
 
     useEffect(() => {
-        const darkmodeimg = document.querySelector('.dark-mode-img');
+        const sunimg = document.querySelector('.dark-mode-sun');
+        const moonimg = document.querySelector('.dark-mode-moon');
 
         if (darkmode) {
             document.body.classList.add('dark-mode')
-            darkmodeimg.src = moonsvg
+            // sunimg.style.display = "block"
+            // moonimg.style.display = "none"
+            sunimg.style.opacity = 0
+            moonimg.style.opacity = 1
+            // darkmodeimg.src = moonsvg
         } else {
             document.body.classList.remove('dark-mode')
-            darkmodeimg.src = sunsvg
+            // moonimg.style.display = "block"
+            // sunimg.style.display = "none"
+            sunimg.style.opacity = 1
+            moonimg.style.opacity = 0
+            // darkmodeimg.src = sunsvg
         }
     }, [darkmode])
 
@@ -106,9 +115,19 @@ export const Chat = () => {
                     <h2>{chatName}</h2>
                     <div className='copy-chatname'><img src={copysvg} alt="copy" /></div>
                 </div>
-                <div className="exit" onClick={handleExit}>
-                    <img src={exitsvg} alt="exit" />
+                <div className="right-block">
+                    <div className="dark-mode-box">
+                        <div className="dark-mode-wrapper" onClick={() => setDarkmode(!darkmode)}>
+                            <img className='dark-mode-moon' src={moonsvg} alt="moon" />
+                            <div className="dark-mode-ball"></div>
+                            <img className='dark-mode-sun' src={sunsvg} alt="sun" />
+                        </div>
+                    </div>
+                    <div className="exit" onClick={handleExit}>
+                        <img src={exitsvg} alt="exit" />
+                    </div>
                 </div>
+
             </header>
             <main>
                 <aside>
@@ -126,27 +145,23 @@ export const Chat = () => {
                             invite +
                         </button>
                     </div>
-                    <div className="about">
-                        <a className="about-row" target="_blank" href='https://github.com/musabiii'>
-                            <img src={githubsvg} alt="" />
-                            <div>musabiii</div>
-                        </a>
-                        <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-client'>
-                            <img src={clientsvg} alt="" />
-                            <div>client</div>
-                        </a>
-                        <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-server'>
-                            <img src={serversvg} alt="" />
-                            <div>server</div>
-                        </a>
-                    </div>
-                    <div className="dark-mode-box">
-                        <div className="dark-mode-wrapper" onClick={() => setDarkmode(!darkmode)}>
-                            <div className="dark-mode-ball">
-                            </div>
-                            <img className='dark-mode-img' src={sunsvg} alt="sun" />
+                    <div className="aside-footer">
+
+                        <div className="about">
+                            <a className="about-row" target="_blank" href='https://github.com/musabiii'>
+                                <img src={githubsvg} alt="" />
+                                <div>musabiii</div>
+                            </a>
+                            <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-client'>
+                                <img src={clientsvg} alt="" />
+                                <div>client</div>
+                            </a>
+                            <a className="about-row" target="_blank" href='https://github.com/musabiii/react-chat-server'>
+                                <img src={serversvg} alt="" />
+                                <div>server</div>
+                            </a>
                         </div>
-                        {/* <div className="dark-mode-title">Dark mode</div> */}
+
                     </div>
                 </aside>
                 <div className="chat-container">
