@@ -20,13 +20,38 @@ export const Auth = () => {
 
     const createChat = (e) => {
         e.preventDefault();
-        const chatName = Math.random().toString(36).slice(-8);
-        navigate(`/chat?${createSearchParams({ chat: chatName, username }).toString()}`)
+        if (username) {
+            const chatName = Math.random().toString(36).slice(-8);
+            navigate(`/chat?${createSearchParams({ chat: chatName, username }).toString()}`)
+        } else {
+            showError('username')
+        }
     }
 
     const enterChat = (e) => {
         e.preventDefault();
-        navigate(`/chat?${createSearchParams({ chat: chatId, username }).toString()}`)
+        if (username && chatId) {
+            navigate(`/chat?${createSearchParams({ chat: chatId, username }).toString()}`)
+        } else {
+            if (!username) {
+            showError('username')
+            }
+            if (!chatId) {
+            showError('chatid')
+            }
+        }
+    }
+
+    function showError(idname) {
+        const usernameInput = document.getElementById(idname);
+        usernameInput.classList.add('input-error')
+        const interval = setInterval(() => {
+            usernameInput.classList.toggle('input-error')
+        }, 200);
+        setTimeout(() => {
+            clearInterval(interval)
+            usernameInput.classList.remove('input-error')
+        }, 600);
     }
 
     return (

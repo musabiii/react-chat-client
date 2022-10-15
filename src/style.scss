@@ -79,6 +79,10 @@ body {
   .form-row {
     display: flex;
     justify-content: center;
+
+      .input-error {
+        border: 2px solid red;
+      }
   }
   .show-form {
     cursor: pointer;
