@@ -7,6 +7,8 @@ import sendmsgsvg from "../ui/sendmsg.svg"
 import githubsvg from "../ui/github.svg"
 import clientsvg from "../ui/client.svg"
 import serversvg from "../ui/server.svg"
+import sunsvg from "../ui/sun.svg"
+import moonsvg from "../ui/moon.svg"
 
 console.log("out of chat page render")
 
@@ -15,6 +17,7 @@ export const Chat = () => {
     const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
     const [socket, setSocket] = useState(io.connect("http://localhost:3000"));
+    const [darkmode, setDarkmode] = useState(false)
     const navigate = useNavigate()
 
     const chatName = searchParams.get("chat");
@@ -42,6 +45,19 @@ export const Chat = () => {
         }
     }, [])
 
+    useEffect(() => {
+        const darkmodeimg = document.querySelector('.dark-mode-img');
+
+        if (darkmode) {
+            document.body.classList.add('dark-mode')
+            darkmodeimg.src = moonsvg
+        } else {
+            document.body.classList.remove('dark-mode')
+            darkmodeimg.src = sunsvg
+        }
+    }, [darkmode])
+
+
     const addMessage = ({ username, text, timestamp }) => {
         setMessages(prev => ([...prev, { username, text, timestamp }]))
     }
@@ -57,6 +73,7 @@ export const Chat = () => {
     }
 
     const handleExit = () => {
+        document.body.classList.remove('dark-mode')
         navigate("/");
     }
 
@@ -79,11 +96,6 @@ export const Chat = () => {
 
     }
 
-    const darkmode = () => {
-        document.body.classList.toggle('dark-mode')
-        document.querySelector(".messages").classList.toggle('dark-mode')
-        document.querySelector("aside").classList.toggle('dark-mode')
-    }
 
     return (
         <div className='chat-page'>
@@ -104,8 +116,8 @@ export const Chat = () => {
                         <h3 className='users-title'>Users:</h3>
                         <div className='user-row'>
                             {users.map(user => {
-                                if (user === usernameClient) return <p className='user-client'>{user}</p>
-                                return <p>{user}</p>
+                                if (user === usernameClient) return <p key={user} className='user-client'>{user}</p>
+                                return <p key={user}>{user}</p>
                             })}
                         </div>
                     </div>
@@ -129,9 +141,12 @@ export const Chat = () => {
                         </a>
                     </div>
                     <div className="dark-mode-box">
-                            <div className="dark-mode-btn" onClick={darkmode}>
-                                darkmode
+                        <div className="dark-mode-wrapper" onClick={() => setDarkmode(!darkmode)}>
+                            <div className="dark-mode-ball">
                             </div>
+                            <img className='dark-mode-img' src={sunsvg} alt="sun" />
+                        </div>
+                        {/* <div className="dark-mode-title">Dark mode</div> */}
                     </div>
                 </aside>
                 <div className="chat-container">
@@ -139,7 +154,7 @@ export const Chat = () => {
                         {messages && messages.map(message => {
                             if (message.username === usernameClient) {
                                 return (
-                                    <div className="message message-client">
+                                    <div key={message.timestamp} className="message message-client">
                                         <div className="text-time">
                                             <div className='text'>{message.text}</div>
                                             <div className="timestamp">{message.timestamp}</div>

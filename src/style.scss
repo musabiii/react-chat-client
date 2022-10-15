@@ -5,13 +5,13 @@ $blue: #3396ff;
 $bgc: #edffff;
 $bgcdark: #1e1e1e;
 $bgcdark: #121212;
-$borderdark:#2d2d2d;
+$borderdark: #2d2d2d;
 // $bgc:#1e1e1e;
 
 body {
   font-family: "Poppins";
   color: $font-color;
-  transition: all .2s linear;
+  transition: all 0.2s linear;
 }
 
 * {
@@ -324,7 +324,37 @@ body {
   }
 }
 
+.dark-mode-box {
+  display: flex;
+  font-size: 16px;
+  gap: 15px;
+  align-items: center;
+  .dark-mode-wrapper {
+    width: 60px;
+    aspect-ratio: 2/1;
+    background-color: #eee;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 2px 2px;
+    cursor: pointer;
+    transition: all .2s linear;
+    justify-content: space-around;
+
+
+    .dark-mode-ball {
+      width: 22px;
+      height: 22px;
+      background-color: #696969;
+      border-radius: 50%;
+      transition: all 1s linear;
+
+    }
+  }
+}
+
 body.dark-mode {
+
   background-color: $bgcdark;
 
   header {
@@ -339,13 +369,11 @@ body.dark-mode {
   }
   .chat-container {
     border-color: $borderdark;
-
   }
   .chat-page {
     box-shadow: none;
-  box-shadow: 5px 5px 200px #696969;
+    box-shadow: 5px 5px 200px #696969;
     border-color: $borderdark;
-
   }
   aside {
     background-color: $bgcdark;
@@ -357,6 +385,9 @@ body.dark-mode {
   .chat-page main .chat-container .form button {
     background-color: $bgcdark;
     border-color: $borderdark;
-
+  }
+  .dark-mode-wrapper {
+    transition: all 1s linear;
+    flex-direction: row-reverse;
   }
 }
