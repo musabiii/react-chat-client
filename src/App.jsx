@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import { Sandbox } from './components/sandbox'
 
 function App() {
 
