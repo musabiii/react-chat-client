@@ -11,6 +11,7 @@ export const Auth = () => {
 
     const navigate = useNavigate()
 
+
     useEffect(() => {
         if (existChat) {
             setActiveTab('enter')
@@ -22,7 +23,10 @@ export const Auth = () => {
         e.preventDefault();
         if (username) {
             const chatName = Math.random().toString(36).slice(-8);
-            navigate(`/chat?${createSearchParams({ chat: chatName, username }).toString()}`)
+            const path = `#/chat?${createSearchParams({ chat: chatName, username }).toString()}`;
+            // navigate(path)
+            location.href = path;
+            location.reload();
         } else {
             showError('username')
         }
@@ -31,7 +35,10 @@ export const Auth = () => {
     const enterChat = (e) => {
         e.preventDefault();
         if (username && chatId) {
-            navigate(`/chat?${createSearchParams({ chat: chatId, username }).toString()}`)
+            const path = `#/chat?${createSearchParams({ chat: chatId, username }).toString()}`;
+            // navigate(path)
+            location.href = path;
+            location.reload();
         } else {
             if (!username) {
             showError('username')

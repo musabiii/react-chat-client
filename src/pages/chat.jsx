@@ -12,8 +12,9 @@ import moonsvg from "../ui/moon.svg"
 
 console.log("out of chat page render")
 
-// const socket = io.connect("https://chat.crm-tables.ru");
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://chat.crm-tables.ru");
+// const socket = io.connect("http://localhost:3001");
+
 
 export const Chat = () => {
     const [searchParams] = useSearchParams();
@@ -24,10 +25,13 @@ export const Chat = () => {
 
     const chatName = searchParams.get("chat");
     const usernameClient = searchParams.get("username");
+    // const socket = io.connect("http://localhost:3001");
 
 
     useEffect(() => {
-        socket.connect();
+        // socket.connect();
+        // setSocket(io.connect("http://localhost:3001"));
+
         if (!usernameClient) {
             navigate(`/auth?chat=${chatName}`)
         }
@@ -43,7 +47,7 @@ export const Chat = () => {
             setUsers(users)
         })
 
-        socket.on("darkmodeclient",(mode)=>{
+        socket.on("darkmodeclient", (mode) => {
             setDarkmode(mode)
         })
 
@@ -74,7 +78,7 @@ export const Chat = () => {
     }, [darkmode])
 
     const handleSetDarkMode = (mode) => {
-        socket.emit("darkmode",mode)
+        socket.emit("darkmode", mode)
     }
 
 
