@@ -12,11 +12,13 @@ import moonsvg from "../ui/moon.svg"
 
 console.log("out of chat page render")
 
+const socket = io.connect("https://chat.crm-tables.ru");
+
 export const Chat = () => {
     const [searchParams] = useSearchParams();
     const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
-    const [socket, setSocket] = useState(io.connect("https://chat.crm-tables.ru"));
+    // const [socket, setSocket] = useState(io.connect("https://chat.crm-tables.ru"));
     // const [socket, setSocket] = useState(io.connect("http://localhost:3001"));
     // const [socket, setSocket] = useState(io.connect("http://crm-tables.ru:3001"));
     const [darkmode, setDarkmode] = useState(false)
