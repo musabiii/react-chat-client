@@ -16,7 +16,7 @@ export const Chat = () => {
     const [searchParams] = useSearchParams();
     const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
-    const [socket, setSocket] = useState(io.connect("http://localhost:3001"));
+    const [socket, setSocket] = useState(io.connect("https://chat.crm-tables.ru"));
     const [darkmode, setDarkmode] = useState(false)
     const navigate = useNavigate()
 
