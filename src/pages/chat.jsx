@@ -12,7 +12,8 @@ import moonsvg from "../ui/moon.svg"
 
 console.log("out of chat page render")
 
-const socket = io.connect("https://chat.crm-tables.ru");
+// const socket = io.connect("https://chat.crm-tables.ru");
+const socket = io.connect("http://localhost:3001");
 
 export const Chat = () => {
     const [searchParams] = useSearchParams();
@@ -26,6 +27,7 @@ export const Chat = () => {
 
 
     useEffect(() => {
+        socket.connect();
         if (!usernameClient) {
             navigate(`/auth?chat=${chatName}`)
         }
@@ -39,6 +41,10 @@ export const Chat = () => {
 
         socket.on("updateUsers", (users) => {
             setUsers(users)
+        })
+
+        socket.on("darkmodeclient",(mode)=>{
+            setDarkmode(mode)
         })
 
         return () => {
@@ -66,6 +72,10 @@ export const Chat = () => {
             // darkmodeimg.src = sunsvg
         }
     }, [darkmode])
+
+    const handleSetDarkMode = (mode) => {
+        socket.emit("darkmode",mode)
+    }
 
 
     const addMessage = ({ username, text, timestamp }) => {
@@ -118,7 +128,8 @@ export const Chat = () => {
                 </div>
                 <div className="right-block">
                     <div className="dark-mode-box">
-                        <div className="dark-mode-wrapper" onClick={() => setDarkmode(!darkmode)}>
+                        {/* <div className="dark-mode-wrapper" onClick={() => setDarkmode(!darkmode)}> */}
+                        <div className="dark-mode-wrapper" onClick={() => handleSetDarkMode(!darkmode)}>
                             <img className='dark-mode-moon' src={moonsvg} alt="moon" />
                             <div className="dark-mode-ball"></div>
                             <img className='dark-mode-sun' src={sunsvg} alt="sun" />
